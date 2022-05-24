@@ -12,6 +12,7 @@ import (
 
 const STARGATE_ENDPOINT = "/cosmos/tx/v1beta1/txs"
 const ISCN_ENDPOINT = "/iscn/records"
+const LATEST_HEIGHT_ENDPOINT = "/latest/height"
 
 func Run(pool *pgxpool.Pool, listenAddr string, lcdEndpoint string) {
 	lcdURL, err := url.Parse(lcdEndpoint)
@@ -34,6 +35,7 @@ func getRouter(pool *pgxpool.Pool) *gin.Engine {
 	router.GET(ISCN_ENDPOINT, handleISCN)
 	router.GET("/txs", handleAminoTxsSearch)
 	router.GET(STARGATE_ENDPOINT, handleStargateTxsSearch)
+	router.GET(LATEST_HEIGHT_ENDPOINT, handleLatestHeight)
 	return router
 }
 
